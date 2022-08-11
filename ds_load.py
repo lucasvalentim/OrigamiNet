@@ -149,7 +149,7 @@ def get_images(fname, max_w, max_h, nch):
 
     try:
 
-        image_data = np.array(Image.open(fname))
+        image_data = np.array(Image.open(fname).convert('L'))
         image_data = npThum(image_data, max_w, max_h)
         image_data = skimage.img_as_float32(image_data)
 
