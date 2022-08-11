@@ -108,19 +108,24 @@ class myLoadDS(Dataset):
     def __init__(self, flist, dpath, ralph=None, fmin=True, mln=None):
         self.fns = get_files(flist, dpath)
         self.tlbls = get_labels(self.fns)
-        
-        if ralph == None:
-            alph  = get_alphabet(self.tlbls)
-            self.ralph = dict (zip(alph.values(),alph.keys()))
-            self.alph = alph
-        else:
-            self.ralph = ralph
-        
+
+        chars = sorted(list(
+            ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~ áÁàÀâÂãÃçÇéÉèÈêÊíÍìÌîÎóÓòÒôÔõÕúÚùÙûÛ'
+        ))
+        self.ralph = dict(zip(chars, range(len(chars))))
+        # if ralph == None:
+        #     alph  = get_alphabet(self.tlbls)
+        #     self.ralph = dict (zip(alph.values(),alph.keys()))
+        #     self.alph = alph
+        # else:
+        #     self.ralph = ralph
+
         if mln != None:
             filt = [len(x) <= mln if fmin else len(x) >= mln for x in self.tlbls]
             self.tlbls = np.asarray(self.tlbls)[filt].tolist()
             self.fns   = np.asarray(self.fns  )[filt].tolist()
-    
+
     def __len__(self):
         return len(self.fns)
 
