@@ -47,9 +47,9 @@ class Gate(nn.Module):
 
     def forward(self, x):
         t0,t1 = torch.chunk(x, ngates, dim=1)
-        t0 = torch.tanh_(t0)
-        t1.sub_(2)
-        t1 = torch.sigmoid_(t1)
+        t0 = torch.tanh(t0)
+        t1 = t1.sub(2)
+        t1 = torch.sigmoid(t1)
 
         return t1*t0
 
