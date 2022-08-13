@@ -3,7 +3,7 @@ manualSeed = 1111
 dist = 'DDP'
 
 n_channels = 1
-o_classes = 80
+o_classes = 140
 
 GradCheck = 0
 
