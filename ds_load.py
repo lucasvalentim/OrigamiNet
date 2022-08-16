@@ -111,9 +111,11 @@ class myLoadDS(Dataset):
 
         chars = sorted(list(
             ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~ áÁàÀâÂãÃçÇéÉèÈêÊíÍìÌîÎóÓòÒôÔõÕúÚùÙûÛ'
+            '!"#$%&\'()*+,-—./:;<=>?@[\]^_`{|}~ áÁàÀâÂãÃçÇéÉèÈêÊíÍìÌîÎóÓòÒôÔõÕúÚùÙûÛ'
         ))
-        self.ralph = dict(zip(chars, range(len(chars))))
+        self.alph = dict(zip(chars, range(len(chars))))
+        self.ralph = dict(zip(self.alph.values(), self.alph.keys()))
+
         # if ralph == None:
         #     alph  = get_alphabet(self.tlbls)
         #     self.ralph = dict (zip(alph.values(),alph.keys()))
