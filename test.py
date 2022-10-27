@@ -7,6 +7,7 @@ import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.distributed as dist
 import numpy as np
+import pandas as pd
 import editdistance
 from nltk.translate.bleu_score import sentence_bleu
 import horovod.torch as hvd
@@ -78,7 +79,13 @@ def validation(model, criterion, evaluation_loader, converter, opt, parO):
 
             tot_ED += tmped
             length_of_gt += len(gt)
-            bleu += sentence_bleu( [list(gt)], list(pred) ) 
+            bleu += sentence_bleu( [list(gt)], list(pred))
+
+        # exports results
+        pd.DataFrame(
+            zip(preds_str, labels),
+            columns=['predicted', 'target']
+        ).to_csv('/content/origami_results.csv', index=False)
 
     if parO.HVD:
         n_correct  = metric_sum_hvd(n_correct , 'sum_n_correct')
