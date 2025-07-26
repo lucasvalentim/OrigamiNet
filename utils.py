@@ -1,11 +1,13 @@
 import torch
 import torch.distributed as dist
 
-import horovod.torch as hvd
-
 from copy import deepcopy
 from collections import OrderedDict
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+CHARSET_BASE = sorted(list(
+    ' !"#$%\'(),-./0123456789:;=?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz~°´ºÀÁÃÇÉÍÓÕÚàáâãçéêìíòóôõùúü̃ẽ—'
+))
 
 
 class CTCLabelConverter(object):
@@ -94,7 +96,7 @@ class Metric(object):
             rt /= dist.get_world_size()
             self.sum += rt.detach().cpu().double()
         elif self.pO.DP:
-            self.sum += val.detach().double()
+            self.sum += val.detach().cpu().double()
 
         self.n += 1
 

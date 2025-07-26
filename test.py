@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 import editdistance
 from nltk.translate.bleu_score import sentence_bleu
-import horovod.torch as hvd
 
 from utils import Averager
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -83,9 +82,9 @@ def validation(model, criterion, evaluation_loader, converter, opt, parO):
 
         # exports results
         pd.DataFrame(
-            zip(preds_str, labels),
-            columns=['predicted', 'target']
-        ).to_csv(f'/content/origami_results_{i}.csv', index=False)
+            zip(labels, preds_str),
+            columns=['label', 'prediction']
+        ).to_csv(f'/content/test_results/origami_results_{i}.csv', index=False)
 
     if parO.HVD:
         n_correct  = metric_sum_hvd(n_correct , 'sum_n_correct')

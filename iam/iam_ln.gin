@@ -1,6 +1,6 @@
 port = 12346
 manualSeed = 1111
-dist = 'DDP'
+dist = 'DP'
 
 n_channels = 1
 o_classes = 140
@@ -26,12 +26,12 @@ train.AMP = False
 train.WdB = False
 train.wdbprj = 'prj_Name'
 train.train_data_list = 'iam/train.ln'
-train.train_data_path = '/mnt/iam/lines/'
+train.train_data_path = '/content/iam/lines/'
 train.test_data_list  = 'iam/val.ln'
-train.test_data_path  = '/mnt/iam/lines/'
-train.train_batch_size = 8
+train.test_data_path  = '/content/iam/lines/'
+train.train_batch_size = 16
 train.val_batch_size   = 8
-train.workers = 4
+train.workers = 2
 train.lr = 0.02
 train.continue_model = ''
 train.valInterval = 1000

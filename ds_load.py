@@ -12,6 +12,7 @@ import imageio
 from math import floor, ceil
 import pickle
 import gin
+from utils import CHARSET_BASE
 
 def RndTform(img,val):
     Ih,Iw = img[0].shape[:2]
@@ -109,10 +110,7 @@ class myLoadDS(Dataset):
         self.fns = get_files(flist, dpath)
         self.tlbls = get_labels(self.fns)
 
-        chars = sorted(list(
-            ' 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            '!"#$%&\'()*+,-—./:;<=>?@[\]^_`{|}~ áÁàÀâÂãÃçÇéÉèÈêÊíÍìÌîÎóÓòÒôÔõÕúÚùÙûÛ'
-        ))
+        chars = CHARSET_BASE
         self.alph = dict(zip(chars, range(len(chars))))
         self.ralph = dict(zip(self.alph.values(), self.alph.keys()))
 
